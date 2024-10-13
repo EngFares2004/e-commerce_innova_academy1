@@ -1,6 +1,5 @@
-import 'package:e_commerce/home_screen.dart';
-import 'package:e_commerce/item_screen.dart';
-import 'package:e_commerce/list_item_screen.dart';
+import 'package:e_commerce/screens/main_screen.dart';
+import 'package:e_commerce/screens/list_products_screen.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -19,9 +18,8 @@ class MyApp extends StatelessWidget {
 
      // home: HomeScreen(),
       routes:{
-        '/': (context) => HomeScreen(),
-        '/listItemScreen': (context) => ListItemScreen(),
-        //'/itemScreen': (context) =>ItemScreen(),
+        '/': (context) => MainScreen(),
+        '/listItemScreen': (context) => ListProductsScreen(),
       },
     );
   }

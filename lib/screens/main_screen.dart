@@ -1,21 +1,22 @@
+import 'package:e_commerce/screens/button_screen/account_screen.dart';
+import 'package:e_commerce/screens/button_screen/home_page.dart';
+import 'package:e_commerce/screens/button_screen/order_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
-import 'button_screen/account_screen.dart';
-import 'button_screen/home_page.dart';
 import 'button_screen/heart_screen.dart';
-import 'button_screen/order_screen.dart';
 
 
-class HomeScreen extends StatefulWidget {
-  const HomeScreen({super.key});
+
+class MainScreen extends StatefulWidget {
+  const MainScreen({super.key});
 
   @override
-  State<HomeScreen> createState() => _HomeScreenState();
+  State<MainScreen> createState() => _MainScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen> {
+class _MainScreenState extends State<MainScreen> {
   int pageIndex = 0;
 
   final myPages = [

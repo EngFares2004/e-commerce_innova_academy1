@@ -1,15 +1,14 @@
 import 'package:e_commerce/generated/assets.dart';
-import 'package:e_commerce/item_screen.dart';
+import 'package:e_commerce/screens/product_details_screen.dart';
 import 'package:flutter/material.dart';
 
-
-class ProductGrid extends StatelessWidget {
-  const ProductGrid({super.key});
+class ProductGridView extends StatelessWidget {
+  const ProductGridView({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: BoxDecoration(
+      decoration: const BoxDecoration(
         color: Color(0xffFAFAFA),
       ),
       padding: const EdgeInsets.all(24),
@@ -28,8 +27,7 @@ class ProductGrid extends StatelessWidget {
               TextButton(
                 onPressed: () {
                   Navigator.of(context).pushNamed('/listItemScreen');
-                }
-                ,
+                },
                 child: const Text('See All'),
               ),
             ],
@@ -41,12 +39,12 @@ class ProductGrid extends StatelessWidget {
             crossAxisSpacing: 16,
             mainAxisSpacing: 16,
             children: [
-              buildProductItem(
+              buildProductCard(
                 'TMA-2 HD Wireless',
                 'Rp. 1.500.000',
                 Assets.imagesImage,
               ),
-              buildProductItem(
+              buildProductCard(
                 'TMA-2 HD Wireless',
                 'Rp. 1.500.000',
                 Assets.imagesImage5,
@@ -58,7 +56,7 @@ class ProductGrid extends StatelessWidget {
     );
   }
 
-  Widget buildProductItem(String name, String price, String imagePath) {
+  Widget buildProductCard(String productName, String productPrice, String productImagePath) {
     return Container(
       padding: const EdgeInsets.all(8),
       decoration: BoxDecoration(
@@ -69,28 +67,26 @@ class ProductGrid extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Image.asset(
-            imagePath,
+            productImagePath,
             height: 129,
             width: 130,
             fit: BoxFit.cover,
           ),
           const SizedBox(height: 8),
           Text(
-            name,
+            productName,
             style: const TextStyle(fontWeight: FontWeight.bold),
           ),
           const SizedBox(height: 4),
-          Text(price, style: const TextStyle(color: Colors.green)),
+          Text(productPrice, style: const TextStyle(color: Colors.green)),
           const SizedBox(height: 4),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-
-            children: [
+            children: const [
               Icon(Icons.star, color: Colors.yellow, size: 12),
               Text('4.8', style: TextStyle(fontSize: 12)),
               Text('84 Reviews', style: TextStyle(fontSize: 12)),
               Icon(Icons.more_vert, size: 12),
-
             ],
           ),
         ],
@@ -98,13 +94,13 @@ class ProductGrid extends StatelessWidget {
     );
   }
 }
-class ProductGridItems extends StatelessWidget {
-  const ProductGridItems({super.key});
+
+class ProductGridItemsView extends StatelessWidget {
+  const ProductGridItemsView({super.key});
 
   @override
   Widget build(BuildContext context) {
-
-    final List<Map<String, String>> products = [
+    final List<Map<String, String>> productItems = [
       {
         'name': 'TMA-2 HD Wireless',
         'price': 'Rp. 1.500.000',
@@ -126,7 +122,6 @@ class ProductGridItems extends StatelessWidget {
         'image': Assets.imagesImage5,
       },
       {
-
         'name': 'TMA-2 HD Wireless',
         'price': 'Rp. 1.500.000',
         'image': Assets.imagesImage,
@@ -152,19 +147,24 @@ class ProductGridItems extends StatelessWidget {
               crossAxisSpacing: 16,
               mainAxisSpacing: 16,
             ),
-            itemCount: products.length,
+            itemCount: productItems.length,
             itemBuilder: (context, index) {
               return InkWell(
-                onTap: (){
-                  Navigator.of(context).push(MaterialPageRoute(builder: (context) =>
-                ItemScreen(name: products[index]['name']!,price: products[index]['price']!,imagePath: products[index]['image']!)
-
-                  ));
+                onTap: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) => ProductDetailsScreen(
+                        name: productItems[index]['name']!,
+                        price: productItems[index]['price']!,
+                        imagePath: productItems[index]['image']!,
+                      ),
+                    ),
+                  );
                 },
-                child: ProductItem(
-                  name: products[index]['name']!,
-                  price: products[index]['price']!,
-                  imagePath: products[index]['image']!,
+                child: ProductItemCard(
+                  productName: productItems[index]['name']!,
+                  productPrice: productItems[index]['price']!,
+                  productImagePath: productItems[index]['image']!,
                 ),
               );
             },
@@ -174,16 +174,15 @@ class ProductGridItems extends StatelessWidget {
             onPressed: () {
               Navigator.of(context).pushNamed('/');
             },
-    
             child: Container(
               height: 35,
               width: double.infinity,
               margin: const EdgeInsets.symmetric(horizontal: 16),
               decoration: BoxDecoration(
                 border: Border.all(color: Colors.black),
-                borderRadius: BorderRadius.circular(8)
+                borderRadius: BorderRadius.circular(8),
               ),
-              child: Center(
+              child: const Center(
                 child: Text(
                   "Filter & Sorting",
                   style: TextStyle(
@@ -194,62 +193,22 @@ class ProductGridItems extends StatelessWidget {
               ),
             ),
           ),
-
-        ],
-      ),
-    );
-  }
-
-  Widget buildProductItem(String name, String price, String imagePath) {
-    return Container(
-      padding: const EdgeInsets.all(8),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(8),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Image.asset(
-            imagePath,
-            height: 129,
-            width: 130,
-            fit: BoxFit.cover,
-          ),
-          const SizedBox(height: 8),
-          Text(
-            name,
-            style: const TextStyle(fontWeight: FontWeight.bold),
-          ),
-          const SizedBox(height: 4),
-          Text(price, style: const TextStyle(color: Colors.green)),
-          const SizedBox(height: 4),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-
-            children: [
-              Icon(Icons.star, color: Colors.yellow, size: 12),
-              Text('4.8', style: TextStyle(fontSize: 12)),
-              Text('84 Reviews', style: TextStyle(fontSize: 12)),
-              Icon(Icons.more_vert, size: 12),
-
-            ],
-          ),
         ],
       ),
     );
   }
 }
-class ProductItem extends StatelessWidget {
-  final String name;
-  final String price;
-  final String imagePath;
 
-  const ProductItem({
+class ProductItemCard extends StatelessWidget {
+  final String productName;
+  final String productPrice;
+  final String productImagePath;
+
+  const ProductItemCard({
     super.key,
-    required this.name,
-    required this.price,
-    required this.imagePath,
+    required this.productName,
+    required this.productPrice,
+    required this.productImagePath,
   });
 
   @override
@@ -264,18 +223,18 @@ class ProductItem extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Image.asset(
-            imagePath,
+            productImagePath,
             height: 129,
             width: 130,
             fit: BoxFit.cover,
           ),
           const SizedBox(height: 8),
           Text(
-            name,
+            productName,
             style: const TextStyle(fontWeight: FontWeight.bold),
           ),
           const SizedBox(height: 4),
-          Text(price, style: const TextStyle(color: Colors.green)),
+          Text(productPrice, style: const TextStyle(color: Colors.green)),
           const SizedBox(height: 4),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,

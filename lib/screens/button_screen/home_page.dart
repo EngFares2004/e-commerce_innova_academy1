@@ -1,8 +1,8 @@
+import 'package:e_commerce/widget/custom_abb_bar.dart';
 import 'package:e_commerce/widget/product_item.dart';
 import 'package:e_commerce/generated/assets.dart';
 import 'package:e_commerce/widget/custom_posts.dart';
-import 'package:e_commerce/widget/custom_search.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:e_commerce/widget/custom_search_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
@@ -17,97 +17,22 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        centerTitle: true,
-        title: const Text("Mega Mall", style: TextStyle(
-            fontFamily: Assets.fontsWorkSansRegular,
-            color: Colors.blueAccent,
-            fontWeight: FontWeight.bold
-        ),
-        ),
-        actions: [
-          Stack(
-            children: [
-              IconButton(
-                icon: const Icon(Icons.notifications_outlined,),
-                onPressed: () {},
-              ),
-              Positioned(
-                left: 20,
-                top: 10,
-                child: Container(
-                  height: 10,
-                  width: 10,
-                  decoration: BoxDecoration(
-                    color: Colors.red,
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                ),
-              )
-            ],
-          ),
-          Stack(
-            children: [
-              IconButton(
-                onPressed: () {},
-                icon: const Icon(CupertinoIcons.cart),
-              ),
-              Positioned(
-                left: 25,
-                top: 10,
-                child: Container(
-                  height: 10,
-                  width: 10,
-                  decoration: BoxDecoration(
-                    color: Colors.red,
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                ),
-              )
-            ],
-          ),
-
-        ],
-        elevation: 5,
+      appBar:CustomAppBar(
+        title: "Mega Mall",
+        titleColor: Colors.blueAccent,
+        showNotificationIcon: true,
       ),
+
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             const CustomSearch(),
-            const SingleChildScrollView(
-              scrollDirection: Axis.horizontal,
-              child: Padding(
-                padding: EdgeInsets.symmetric(horizontal: 24),
-                child: Row(
-                  children: [
-                    CustomPosts(imageUrl: Assets.imagesGroup),
-                    SizedBox(width: 12,),
-                    CustomPosts(imageUrl: Assets.imagesGroup1),
-
-                  ],
-
-                ),
-              ),
-            ),
-            _buildCategory(),
-
-
-
+            _showCustomPosts() ,
+            _showCategoryItem(),
             const SizedBox(height: 8),
-            ProductGrid(),
-            GridView.count(
-              shrinkWrap: true,
-              crossAxisCount: 2,
-              crossAxisSpacing: 16,
-              mainAxisSpacing: 16,
-              children: [
-              ],
-            ),
-
+            ProductGridView(),
             const SizedBox(height: 16),
-
             const Padding(
               padding: EdgeInsets.all(12),
               child: CustomPosts(imageUrl: Assets.imagesBanner, width: 375,),
@@ -118,8 +43,24 @@ class _HomePageState extends State<HomePage> {
       ),
     );
   }
+  Widget _showCustomPosts() {
+    return  const SingleChildScrollView(
+      scrollDirection: Axis.horizontal,
+      child: Padding(
+        padding: EdgeInsets.symmetric(horizontal: 24),
+        child: Row(
+          children: [
+            CustomPosts(imageUrl: Assets.imagesGroup),
+            SizedBox(width: 12,),
+            CustomPosts(imageUrl: Assets.imagesGroup1),
 
-  Widget _buildCategory() {
+          ],
+
+        ),
+      ),
+    );
+  }
+  Widget _showCategoryItem() {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal:24),
       child: Column(
@@ -167,6 +108,7 @@ class _HomePageState extends State<HomePage> {
       ),
     );
   }
+
   Widget _buildCategoryItem(String label, String image) {
     return Padding(
       padding: const EdgeInsets.all(8.0),
